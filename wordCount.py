@@ -27,8 +27,7 @@ def check_arguments():
 def purge_file():
 	reader = open(input_file, 'r')
 	data = reader.read()
-	purged_data = re.sub('\W+', ' ', data)
-	purged_data = re.sub('\s+', ' ', purged_data)
+	purged_data = re.sub('[\s\W]+', ' ', data).strip()
 	words = purged_data.split(' ')
 	reader.close()
 	build_dictionary(words)
@@ -42,8 +41,6 @@ def build_dictionary(words):
 		else:
 			dictionary[word.lower()] = 1
 	sorted_dictionary = collections.OrderedDict(sorted(dictionary.items()))
-	if '' in sorted_dictionary:
-		sorted_dictionary.pop('', None)
 	writer = open(output_file, 'w+')
 	for w, c in sorted_dictionary.items():
 		writer.write("%s %s\n" %(w, c))
