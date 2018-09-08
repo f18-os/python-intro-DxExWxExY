@@ -2,7 +2,7 @@ import sys
 import re
 import os
 import collections
-import timer
+import time
 
 # global variables
 input_file = ""
@@ -12,9 +12,9 @@ output_file = ""
 def check_arguments():
 	if len(sys.argv) is not 3:
 		print("Arguments Mismatch, Try Again.")
-		for i in range(1,10):
+		for i in range(1,5):
 			print("Wait %d" % i)
-			timer.sleep(1)
+			time.sleep(1)
 		exit()
 	else:
 		global input_file
