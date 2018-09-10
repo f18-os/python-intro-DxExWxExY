@@ -15,4 +15,3 @@ elif rc == 0:                   # child
     os.write(1, ("I am child.  My pid==%d.  Parent's pid=%d\n" % (os.getpid(), pid)).encode())
 else:                           # parent (forked ok)
     os.write(1, ("I am parent.  My pid=%d.  Child's pid=%d\n" % (pid, rc)).encode())
-    

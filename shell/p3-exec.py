@@ -8,8 +8,6 @@ os.write(1, ("About to fork (pid:%d)\n" % pid).encode())
 
 rc = os.fork()
 
-
-
 if rc < 0:
     os.write(2, ("fork failed, returning %d\n" % rc).encode())
     sys.exit(1)
@@ -39,4 +37,3 @@ else:                           # parent (forked ok)
     childPidCode = os.wait()
     os.write(1, ("Parent: Child %d terminated with exit code %d\n" % 
                  childPidCode).encode())
-4
