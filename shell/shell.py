@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, time, re, getpass, subprocess
+import os, sys, time, re, subprocess
 
 def fork_process(program_args):
 	if 'cd' in program_args:
@@ -46,21 +46,26 @@ def redirect_input(program_args):
 	execute_program(args)
 		
 def pipe_program(program_args):
+	fds = os.pipe()
+	os.set_inheritable(fds[0], True)
+	os.set_inheritable(fds[1], True)
 	left = program_args[0 : program_args.index('|')]
 	right = program_args[program_args.index('|') + 1 : ]
 	pc = os.fork()
 	if pc == 0:
 		os.close(1)
-		sys.stdout = open('pipe','w')
-		fd = sys.stdout.fileno()
-		os.set_inheritable(fd, True)
+		# sys.stdout = os.fdopen(fds[1])
+		# sys.stdout = open('pipe','w')
+		# fd = sys.stdout.fileno()
+		# os.set_inheritable(fd, True)
 		execute_program(left)
 	else:
 		os.wait()
 		os.close(0)
-		sys.stdin = open('pipe', 'r')
-		fd = sys.stdin.fileno()
-		os.set_inheritable(fd, True)
+		# sys.stdout = os.fdopen(fds[0])
+		# sys.stdin = open('pipe', 'r')
+		# fd = sys.stdin.fileno()
+		# os.set_inheritable(fd, True)
 		execute_program(right)
 
 def execute_program(args):
@@ -80,10 +85,11 @@ def execute_program(args):
 
 if __name__ == '__main__':
 	user_input = ['clear']
+	os.environ['PS1'] = "Shell\n> "
 	while not 'exit' in user_input:
 		if not user_input is ['']:
 			fork_process(user_input)
 		# os.write(1, "\nshell\n>".encode())
 		# user_input = os.read(0, 50).decode().strip().split(' ')
-		user_input = input().split('')
+		user_input = input(os.environ["PS1"]).split(' ')
 	sys.exit(0)
