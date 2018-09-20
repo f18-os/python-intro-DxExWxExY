@@ -1,7 +1,4 @@
-During this shell assignment I was working along with
-Jose Lopez, and Diego Rodriguez to understand how the
-piping code work because to me the concept of having
-2 child process was hard to understand.
+I colaborated with my friend Jose lopez and Luis Jimenez and cam up with the following diagram to figurure out piping.
 
 * Here you can see the diagram we develop to explain how piping works
-![alt text](https://github.com/f18-os/python-intro-lcjimenez21/blob/master/Shell_project/CollaboratorDiagram.jpg)
+![diagram](https://github.com/f18-os/python-intro-DxExWxExY/blob/master/shell/diagram.jpg)
